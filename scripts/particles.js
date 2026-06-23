@@ -1,6 +1,7 @@
 /* =========================================================================
-   particles.js  —  ฝุ่นจุดเล็ก ๆ ลอยวิ่งบนหน้า Landing (วาดด้วย canvas)
-   ปรับจำนวน/ความเร็ว/สี ได้ที่ค่าในฟังก์ชัน makeParticles ด้านล่าง
+   particles.js  —  ฝุ่นจุดเล็ก ๆ "พุ่งออกจากหลังรูป" บนหน้า Landing (canvas)
+   จุดกำเนิด = ตำแหน่งรูปคน แล้วกระจายออกช้า ๆ จางหายไป
+   ปรับ จำนวน/ความเร็ว ได้ที่ค่าในฟังก์ชัน makeParticles / spawn ด้านล่าง
    ========================================================================= */
 
 (function () {
@@ -13,7 +14,8 @@
   var hero = canvas.closest(".hero") || canvas.parentElement;
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var dpr = Math.min(window.devicePixelRatio || 1, 2);
-  var w = 0, h = 0, particles = [], raf = 0, t = 0;
+  var w = 0, h = 0, particles = [], raf = 0;
+  var originX = 0, originY = 0;
 
   // สีจุด (รูปแบบ R,G,B) — ส้ม/ขาว
   var COLORS = ["255,176,96", "255,122,24", "255,255,255", "255,96,32"];
@@ -28,27 +30,53 @@
     canvas.style.width = w + "px";
     canvas.style.height = h + "px";
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    computeOrigin();
   }
 
-  function makeParticles() {
-    var count = Math.round((w * h) / 11000);     // ความหนาแน่น
-    count = Math.max(50, Math.min(150, count));
-    particles = [];
-    for (var i = 0; i < count; i++) {
-      particles.push({
-        x: Math.random() * w,
-        y: Math.random() * h,
-        r: rand(0.5, 2.4),
-        vx: rand(-0.5, 0.5),
-        vy: rand(-1.4, -0.4),                     // ลอยขึ้น (เร็วขึ้น)
-        a: rand(0.18, 0.85),
-        tw: rand(0.01, 0.04),                     // ความเร็วกะพริบ
-        c: COLORS[(Math.random() * COLORS.length) | 0]
-      });
+  // จุดกำเนิดฝุ่น = กลางรูปคน (ถ้าไม่เจอรูป ใช้ฝั่งขวา)
+  function computeOrigin() {
+    var img = hero.querySelector(".hero-visual img");
+    var hrect = hero.getBoundingClientRect();
+    if (img && img.getBoundingClientRect().width > 0) {
+      var r = img.getBoundingClientRect();
+      originX = r.left - hrect.left + r.width / 2;
+      originY = r.top - hrect.top + r.height * 0.42;
+    } else {
+      originX = w * 0.72;
+      originY = h * 0.45;
     }
   }
 
-  function drawParticle(p, alpha) {
+  function spawn(p) {
+    var ang = Math.random() * Math.PI * 2;
+    var spd = rand(0.06, 0.32);                 // ช้า
+    p.x = originX + rand(-14, 14);
+    p.y = originY + rand(-14, 14);
+    p.vx = Math.cos(ang) * spd;
+    p.vy = Math.sin(ang) * spd;
+    p.r = rand(0.7, 2.4);
+    p.life = 0;
+    p.maxLife = rand(320, 760);                 // อยู่นาน (ลอยช้า)
+    p.base = rand(0.4, 0.95);
+    p.c = COLORS[(Math.random() * COLORS.length) | 0];
+  }
+
+  function makeParticles() {
+    var count = Math.round((w * h) / 34000);    // น้อยลง
+    count = Math.max(18, Math.min(46, count));
+    particles = [];
+    for (var i = 0; i < count; i++) {
+      var p = {};
+      spawn(p);
+      p.life = Math.random() * p.maxLife;       // กระจายช่วงชีวิตตอนเริ่ม
+      particles.push(p);
+    }
+  }
+
+  function draw(p) {
+    var prog = p.life / p.maxLife;
+    var alpha = Math.sin(prog * Math.PI) * p.base;   // จาง-เข้ม-จาง
+    if (alpha <= 0) return;
     ctx.beginPath();
     ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
     ctx.fillStyle = "rgba(" + p.c + "," + alpha.toFixed(3) + ")";
@@ -59,21 +87,18 @@
     ctx.clearRect(0, 0, w, h);
     for (var i = 0; i < particles.length; i++) {
       var p = particles[i];
+      p.life++;
       p.x += p.vx;
       p.y += p.vy;
-      if (p.y < -6) { p.y = h + 6; p.x = Math.random() * w; }   // วนกลับลงล่าง
-      if (p.x < -6) p.x = w + 6;
-      if (p.x > w + 6) p.x = -6;
-      var alpha = p.a * (0.55 + 0.45 * Math.sin(t * p.tw + i));
-      drawParticle(p, Math.max(0, alpha));
+      if (p.life >= p.maxLife) spawn(p);        // เกิดใหม่ที่จุดกำเนิด
+      draw(p);
     }
-    t += 1;
     raf = requestAnimationFrame(frame);
   }
 
   function startStatic() {
     ctx.clearRect(0, 0, w, h);
-    for (var i = 0; i < particles.length; i++) drawParticle(particles[i], particles[i].a);
+    for (var i = 0; i < particles.length; i++) draw(particles[i]);
   }
 
   function start() {
