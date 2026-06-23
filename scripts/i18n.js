@@ -14,9 +14,10 @@ const I18N = {
     "nav.contact": "Contact",
     "nav.resume": "Resume",
 
-    "hero.kicker": "Graphic Designer",
-    "hero.title": "Your Name",
-    "hero.tagline": "Designing visuals that tell a story — branding, posters, and everything in between.",
+    "hero.kicker": "Graphic Designer · Portfolio",
+    "hero.title": "Crafting bold",
+    "hero.titleAccent": "visual stories.",
+    "hero.tagline": "I’m a graphic designer turning ideas into striking visuals — branding, posters, and everything in between.",
     "hero.cta": "View Work",
     "hero.scroll": "Scroll",
 
@@ -52,9 +53,10 @@ const I18N = {
     "nav.contact": "ติดต่อ",
     "nav.resume": "เรซูเม่",
 
-    "hero.kicker": "กราฟิกดีไซเนอร์",
-    "hero.title": "ชื่อของคุณ",
-    "hero.tagline": "ออกแบบงานภาพที่เล่าเรื่องได้ — ทั้งงานแบรนด์ โปสเตอร์ และอื่น ๆ อีกมากมาย",
+    "hero.kicker": "กราฟิกดีไซเนอร์ · พอร์ตโฟลิโอ",
+    "hero.title": "ออกแบบงานภาพ",
+    "hero.titleAccent": "ที่เล่าเรื่องได้",
+    "hero.tagline": "ฉันเป็นกราฟิกดีไซเนอร์ที่เปลี่ยนไอเดียให้กลายเป็นงานภาพที่สะดุดตา — ทั้งงานแบรนด์ โปสเตอร์ และอื่น ๆ อีกมากมาย",
     "hero.cta": "ดูผลงาน",
     "hero.scroll": "เลื่อนลง",
 

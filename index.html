@@ -11,33 +11,42 @@
   <link rel="stylesheet" href="styles/main.css" />
 </head>
 <body>
-  <!-- ===================== NAV ===================== -->
-  <header class="nav" id="nav">
-    <div class="nav__inner">
-      <a href="#hero" class="nav__logo">YN<span class="dot">.</span></a>
-      <nav class="nav__links">
-        <a href="#work" data-i18n="nav.work">Work</a>
-        <a href="#about" data-i18n="nav.about">About</a>
-        <a href="#contact" data-i18n="nav.contact">Contact</a>
-        <a href="assets/resume.pdf" class="nav__resume" download data-i18n="nav.resume">Resume</a>
-      </nav>
-      <button class="lang-toggle" id="langToggle" aria-label="Switch language" data-i18n="lang.toggle">TH</button>
-    </div>
-  </header>
-
   <main>
-    <!-- ===================== HERO ===================== -->
+    <!-- ===================== HERO (no header) ===================== -->
     <section class="hero" id="hero">
-      <div class="hero__inner reveal">
-        <p class="kicker" data-i18n="hero.kicker">Graphic Designer</p>
-        <h1 class="hero__title" data-i18n="hero.title">Your Name</h1>
-        <p class="hero__tagline" data-i18n="hero.tagline">Designing visuals that tell a story.</p>
-        <a href="#work" class="btn btn--primary" data-i18n="hero.cta">View Work</a>
+      <!-- พื้นหลังเคลื่อนไหว: แสงส้มลอยเลื่อน -->
+      <div class="hero-bg" aria-hidden="true">
+        <span class="blob blob--1"></span>
+        <span class="blob blob--2"></span>
+        <span class="blob blob--3"></span>
       </div>
-      <a href="#work" class="hero__scroll" aria-hidden="true">
-        <span data-i18n="hero.scroll">Scroll</span>
-        <span class="hero__scroll-line"></span>
-      </a>
+
+      <!-- ปุ่มสลับภาษาแบบลอย (แทน header) -->
+      <button class="lang-toggle lang-toggle--float" id="langToggle" aria-label="Switch language" data-i18n="lang.toggle">TH</button>
+
+      <div class="hero-grid">
+        <!-- ข้อความ (ซ้าย) -->
+        <div class="hero-copy reveal">
+          <p class="hero-kicker">
+            <span class="dot-orange"></span>
+            <span data-i18n="hero.kicker">Graphic Designer · Portfolio</span>
+          </p>
+          <h1 class="hero-headline">
+            <span data-i18n="hero.title">Crafting bold</span>
+            <em data-i18n="hero.titleAccent">visual stories.</em>
+          </h1>
+          <p class="hero-sub" data-i18n="hero.tagline">A graphic designer turning ideas into striking visuals.</p>
+          <div class="hero-actions">
+            <a href="#work" class="btn btn--orange" data-i18n="hero.cta">View Work</a>
+            <a href="assets/resume.pdf" class="btn btn--outline" download data-i18n="resume.cta">Download Resume</a>
+          </div>
+        </div>
+
+        <!-- รูปคน (ขวา) -->
+        <div class="hero-visual reveal">
+          <img src="assets/hero-portrait.svg" alt="Portrait" />
+        </div>
+      </div>
     </section>
 
     <!-- ===================== WORK ===================== -->
