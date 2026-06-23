@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Name — Graphic Designer</title>
+  <meta name="description" content="Portfolio of a graphic designer — branding, posters, illustration and more." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles/main.css" />
+</head>
+<body>
+  <!-- ===================== NAV ===================== -->
+  <header class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="#hero" class="nav__logo">YN<span class="dot">.</span></a>
+      <nav class="nav__links">
+        <a href="#work" data-i18n="nav.work">Work</a>
+        <a href="#about" data-i18n="nav.about">About</a>
+        <a href="#contact" data-i18n="nav.contact">Contact</a>
+        <a href="assets/resume.pdf" class="nav__resume" download data-i18n="nav.resume">Resume</a>
+      </nav>
+      <button class="lang-toggle" id="langToggle" aria-label="Switch language" data-i18n="lang.toggle">TH</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- ===================== HERO ===================== -->
+    <section class="hero" id="hero">
+      <div class="hero__inner reveal">
+        <p class="kicker" data-i18n="hero.kicker">Graphic Designer</p>
+        <h1 class="hero__title" data-i18n="hero.title">Your Name</h1>
+        <p class="hero__tagline" data-i18n="hero.tagline">Designing visuals that tell a story.</p>
+        <a href="#work" class="btn btn--primary" data-i18n="hero.cta">View Work</a>
+      </div>
+      <a href="#work" class="hero__scroll" aria-hidden="true">
+        <span data-i18n="hero.scroll">Scroll</span>
+        <span class="hero__scroll-line"></span>
+      </a>
+    </section>
+
+    <!-- ===================== WORK ===================== -->
+    <section class="section" id="work">
+      <div class="section__head reveal">
+        <p class="kicker" data-i18n="work.kicker">Selected Work</p>
+        <h2 class="section__title" data-i18n="work.title">Things I’ve made</h2>
+      </div>
+      <!-- การ์ดผลงานถูกสร้างอัตโนมัติจากไฟล์ data/works.js -->
+      <div class="grid" id="workGrid"></div>
+    </section>
+
+    <!-- ===================== ABOUT ===================== -->
+    <section class="section section--about" id="about">
+      <div class="about reveal">
+        <div class="about__text">
+          <p class="kicker" data-i18n="about.kicker">About</p>
+          <h2 class="section__title" data-i18n="about.title">A little about me</h2>
+          <p class="about__body" data-i18n="about.body">I’m a graphic designer…</p>
+        </div>
+        <div class="about__skills">
+          <h3 data-i18n="about.skills">Tools &amp; Skills</h3>
+          <!-- แก้รายการทักษะได้ที่นี่ตรง ๆ -->
+          <ul class="chips">
+            <li>Photoshop</li>
+            <li>Illustrator</li>
+            <li>InDesign</li>
+            <li>Figma</li>
+            <li>After Effects</li>
+            <li>Branding</li>
+            <li>Typography</li>
+            <li>Layout</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== CONTACT ===================== -->
+    <section class="section section--contact" id="contact">
+      <div class="contact reveal">
+        <p class="kicker" data-i18n="contact.kicker">Contact</p>
+        <h2 class="section__title" data-i18n="contact.title">Let’s work together</h2>
+        <p class="contact__body" data-i18n="contact.body">Open to freelance and full-time roles.</p>
+
+        <!-- แก้อีเมลตรงนี้ (มี 2 ที่: href="mailto:..." กับข้อความที่โชว์) -->
+        <a class="contact__email" href="mailto:s.nonthawat71@gmail.com">s.nonthawat71@gmail.com</a>
+
+        <div class="contact__actions">
+          <a href="mailto:s.nonthawat71@gmail.com" class="btn btn--primary" data-i18n="contact.cta">Say hello</a>
+          <a href="assets/resume.pdf" class="btn btn--ghost" download data-i18n="resume.cta">Download Resume (PDF)</a>
+        </div>
+
+        <!-- แก้/เพิ่มลิงก์โซเชียลได้ที่นี่ -->
+        <ul class="socials">
+          <li><a href="#" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="#" target="_blank" rel="noopener">Behance</a></li>
+          <li><a href="#" target="_blank" rel="noopener">LinkedIn</a></li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>© <span id="year"></span> Your Name</span>
+    <span data-i18n="footer.rights">All rights reserved.</span>
+  </footer>
+
+  <script src="data/works.js"></script>
+  <script src="scripts/i18n.js"></script>
+  <script src="scripts/main.js"></script>
+</body>
+</html>
