@@ -48,25 +48,25 @@
   }
 
   function spawn(p) {
-    // แผ่ออกจากหลังรูปเข้าหาโซนที่มองเห็น (ซ้าย/บน/ล่าง) กระจายเต็มจอเหมือน v1
+    // แผ่ออกจากหลังรูปเข้าหาโซนที่มองเห็น (ซ้าย/บน/ล่าง) — ลอยเอื่อย ๆ ละเอียด
     var ang = Math.PI * 0.45 + Math.random() * Math.PI * 1.1;
-    var spd = rand(0.18, 0.68);
+    var spd = rand(0.05, 0.20);                 // ช้า สงบ
     p.x = originX + rand(-8, 8);
     p.y = originY + rand(-8, 8);
     p.vx = Math.cos(ang) * spd;
     p.vy = Math.sin(ang) * spd;
-    p.r = rand(0.8, 2.6);
+    p.r = rand(0.4, 1.5);                        // จุดเล็ก ละเอียด
     p.life = 0;
-    p.maxLife = rand(600, 1500);                // อยู่นาน + ไปได้ไกล
-    p.base = rand(0.55, 1);
-    p.tw = rand(0.012, 0.045);                  // ความเร็วกะพริบ
+    p.maxLife = rand(900, 2000);                // อยู่นาน ลอยช้า
+    p.base = rand(0.3, 0.78);                   // ไม่จ้า
+    p.tw = rand(0.006, 0.018);                  // กะพริบนุ่ม ช้า
     p.seed = Math.random() * 1000;
     p.c = COLORS[(Math.random() * COLORS.length) | 0];
   }
 
   function makeParticles() {
-    var count = Math.round((w * h) / 9000);     // เยอะแบบ v1
-    count = Math.max(90, Math.min(200, count));
+    var count = Math.round((w * h) / 11000);
+    count = Math.max(70, Math.min(150, count));
     particles = [];
     for (var i = 0; i < count; i++) {
       var p = {};
@@ -80,14 +80,14 @@
 
   function draw(p) {
     var prog = p.life / p.maxLife;
-    var fade = Math.min(prog / 0.12, (1 - prog) / 0.3, 1);     // จางเข้า/ออกตอนปลาย
-    var twinkle = 0.5 + 0.5 * Math.sin(t * p.tw + p.seed);     // กะพริบระยิบ
-    var alpha = Math.max(0, fade) * p.base * (0.35 + 0.65 * twinkle);
+    var fade = Math.min(prog / 0.15, (1 - prog) / 0.3, 1);     // จางเข้า/ออกตอนปลาย
+    var twinkle = 0.5 + 0.5 * Math.sin(t * p.tw + p.seed);     // กะพริบนุ่ม
+    var alpha = Math.max(0, fade) * p.base * (0.5 + 0.5 * twinkle);
     if (alpha <= 0.01) return;
     ctx.save();
     ctx.globalAlpha = alpha;
-    ctx.shadowColor = "rgba(" + p.c + ",1)";         // เรืองแสง
-    ctx.shadowBlur = p.r * 3;
+    ctx.shadowColor = "rgba(" + p.c + ",1)";         // แสงเรืองบาง ๆ
+    ctx.shadowBlur = p.r * 1.6;
     ctx.beginPath();
     ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
     ctx.fillStyle = "rgba(" + p.c + ",1)";
