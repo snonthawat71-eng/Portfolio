@@ -165,9 +165,9 @@
       position:relative;
       width:100%;
       aspect-ratio:4/5;
-      /* ไล่ขอบรูปให้จางหายเป็นวงรี ใช้ได้กับรูปพื้นหลังสีอะไรก็ได้ ไม่เห็นเป็นกล่อง */
-      -webkit-mask-image:radial-gradient(ellipse 72% 80% at 54% 46%, #000 40%, rgba(0,0,0,.55) 60%, transparent 78%);
-      mask-image:radial-gradient(ellipse 72% 80% at 54% 46%, #000 40%, rgba(0,0,0,.55) 60%, transparent 78%);
+      /* รูปเป็น PNG พื้นใสอยู่แล้ว ไล่จางเฉพาะขอบล่างให้ตัวคนกลืนลงพื้น */
+      -webkit-mask-image:linear-gradient(to bottom, #000 82%, transparent 100%);
+      mask-image:linear-gradient(to bottom, #000 82%, transparent 100%);
     }
     .portrait img{
       position:absolute; inset:0;
@@ -283,21 +283,10 @@
       <!-- ขวา: รูป + สถิติ -->
       <div class="hero-visual">
         <div class="portrait">
-          <!-- ภาพสำรอง (กราฟิกแว่น VR) แสดงเมื่อรูปจริงโหลดไม่ขึ้น -->
-          <div class="fallback">
-            <svg width="60%" viewBox="0 0 200 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="14" y="34" width="172" height="60" rx="30" fill="#1c0d0d" stroke="#e8121f" stroke-width="2"/>
-              <rect x="30" y="48" width="60" height="32" rx="16" fill="#e8121f" opacity=".85"/>
-              <rect x="110" y="48" width="60" height="32" rx="16" fill="#e8121f" opacity=".85"/>
-              <circle cx="100" cy="64" r="5" fill="#ff2b38"/>
-            </svg>
-          </div>
-          <!-- รูปจริง: ดึงจาก Pexels (ฟรี ไม่ต้องให้เครดิต) จะโหลดขึ้นเมื่อออนไลน์ -->
-          <img
-            src="https://images.pexels.com/photos/19500113/pexels-photo-19500113.jpeg?auto=compress&cs=tinysrgb&w=1000&h=1250&fit=crop"
-            alt="Person wearing a VR headset"
-            onerror="this.style.display='none'"
-          />
+          <!-- แสงแดงเรือง ๆ ด้านหลังตัวคน -->
+          <div class="fallback"></div>
+          <!-- รูปคนใส่แว่น VR (ไฟล์ PNG พื้นใสในเครื่อง) เปลี่ยนรูปได้โดยเอาไฟล์ใหม่มาทับ hero.png -->
+          <img src="hero.png" alt="Person wearing a VR headset" />
         </div>
 
         <!-- ตัวเลขสถิติ -->
