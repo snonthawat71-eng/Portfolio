@@ -54,57 +54,6 @@
       z-index:0;
     }
 
-    /* =========================================================
-       แถบเมนูบนสุด (Navbar)
-       ========================================================= */
-    .nav{
-      position:fixed;
-      top:0; left:0; right:0;
-      z-index:50;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:24px;
-      padding:18px clamp(18px,4vw,48px);
-      backdrop-filter:blur(8px);
-      background:linear-gradient(to bottom, rgba(10,6,6,.75), rgba(10,6,6,0));
-      animation:dropIn .8s ease both;
-    }
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      font-family:'Space Grotesk',sans-serif;
-      font-weight:600;
-      font-size:20px;
-      letter-spacing:.3px;
-    }
-    .brand .diamond{
-      width:22px; height:22px;
-      display:inline-block;
-      transform:rotate(45deg);
-      border:2px solid var(--text);
-      border-radius:5px;
-      position:relative;
-    }
-    .brand .diamond::after{
-      content:"";
-      position:absolute; inset:4px;
-      border:2px solid var(--text);
-      border-radius:3px;
-      opacity:.55;
-    }
-
-    .menu{
-      display:flex;
-      align-items:center;
-      gap:26px;
-      font-size:14px;
-      color:var(--muted);
-    }
-    .menu a{ transition:color .2s ease; }
-    .menu a:hover{ color:var(--text); }
-
     .btn{
       font-family:'Inter',sans-serif;
       font-size:14px;
@@ -121,8 +70,6 @@
     }
     .btn:hover{ transform:translateY(-2px); box-shadow:0 12px 32px rgba(232,18,31,.6), inset 0 1px 0 rgba(255,255,255,.25); }
 
-    .nav-toggle{ display:none; }
-
     /* =========================================================
        ส่วน HERO
        ========================================================= */
@@ -131,7 +78,7 @@
       z-index:1;
       max-width:var(--maxw);
       margin:0 auto;
-      padding:170px clamp(18px,4vw,48px) 60px;
+      padding:70px clamp(18px,4vw,48px) 70px;
       min-height:100vh;
       display:flex;
       flex-direction:column;
@@ -304,48 +251,11 @@
     }
 
     /* =========================================================
-       แถวโลโก้ลูกค้า (เลื่อนวน)
-       ========================================================= */
-    .logos{
-      position:relative;
-      z-index:1;
-      border-top:1px solid var(--line);
-      border-bottom:1px solid var(--line);
-      padding:26px 0;
-      overflow:hidden;
-      -webkit-mask-image:linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
-      mask-image:linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
-      animation:fadeIn 1s ease 1s both;
-    }
-    .logos-track{
-      display:flex;
-      gap:70px;
-      width:max-content;
-      animation:marquee 22s linear infinite;
-    }
-    .logos:hover .logos-track{ animation-play-state:paused; }
-    .logo-item{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      font-family:'Space Grotesk',sans-serif;
-      font-weight:600;
-      font-size:20px;
-      color:var(--muted);
-      white-space:nowrap;
-      transition:color .2s ease;
-    }
-    .logo-item:hover{ color:var(--text); }
-    .logo-item svg{ width:24px; height:24px; }
-
-    /* =========================================================
        อนิเมชัน (keyframes)
        ========================================================= */
     @keyframes fadeUp{ from{ opacity:0; transform:translateY(26px); } to{ opacity:1; transform:translateY(0); } }
     @keyframes fadeIn{ from{ opacity:0; } to{ opacity:1; } }
-    @keyframes dropIn{ from{ opacity:0; transform:translateY(-18px); } to{ opacity:1; transform:translateY(0); } }
     @keyframes imgIn{ from{ opacity:0; transform:translateX(60px) scale(.98); } to{ opacity:1; transform:translateX(0) scale(1); } }
-    @keyframes marquee{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
 
     @media (prefers-reduced-motion:reduce){
       *{ animation:none !important; }
@@ -357,7 +267,7 @@
     @media (max-width:860px){
       .menu{ display:none; }
       .hero-grid{ grid-template-columns:1fr; gap:30px; }
-      .hero{ padding-top:130px; text-align:left; }
+      .hero{ padding-top:50px; text-align:left; }
       .hero-visual{ order:-1; max-width:420px; }
       .v-labels{ display:none; }
       .stat-1{ left:0; }
@@ -368,19 +278,6 @@
 </head>
 
 <body>
-
-  <!-- ===================== เมนูบนสุด ===================== -->
-  <header class="nav">
-    <div class="brand"><span class="diamond"></span> Visora</div>
-    <nav class="menu">
-      <a href="#">Home</a>
-      <a href="#">About</a>
-      <a href="#">Services</a>
-      <a href="#">Testimonials</a>
-      <a href="#">Contact</a>
-    </nav>
-    <button class="btn">Book a Call</button>
-  </header>
 
   <!-- ===================== HERO ===================== -->
   <main class="hero">
@@ -464,27 +361,6 @@
 
     </div>
   </main>
-
-  <!-- ===================== แถวโลโก้ลูกค้า (เลื่อนวน) ===================== -->
-  <section class="logos">
-    <div class="logos-track" id="logosTrack">
-      <!-- ชุดที่ 1 -->
-      <span class="logo-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20L12 4l8 16M8 14h8"/></svg>Synergy</span>
-      <span class="logo-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8 12a4 4 0 018 0"/></svg>Velocity</span>
-      <span class="logo-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12c4-6 14-6 18 0M5 15c3-4 11-4 14 0M7 18c2-2 8-2 10 0"/></svg>Spectrum</span>
-      <span class="logo-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M3 12h18M6 6l12 12M18 6L6 18"/></svg>Stellar</span>
-      <span class="logo-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M6 6l2 2M16 16l2 2M18 6l-2 2M8 16l-2 2"/></svg>Enigma</span>
-    </div>
-  </section>
-
-  <script>
-    /* คัดลอกชุดโลโก้ซ้ำอีกหนึ่งชุด เพื่อให้การเลื่อนวนต่อเนื่องแบบไม่มีรอยต่อ */
-    (function(){
-      var track = document.getElementById('logosTrack');
-      if(!track) return;
-      track.innerHTML += track.innerHTML;
-    })();
-  </script>
 
 </body>
 </html>
