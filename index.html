@@ -3,8 +3,488 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Portfolio</title>
+  <title>Visora — Step Into The Future</title>
+
+  <!-- ฟอนต์จาก Google (ใช้ได้เมื่อออนไลน์ ถ้าออฟไลน์จะใช้ฟอนต์ในเครื่องแทนอัตโนมัติ) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* =========================================================
+       ตัวแปรสี / ค่าหลัก (อยากเปลี่ยนสีโทนเว็บ แก้ตรงนี้จุดเดียว)
+       ========================================================= */
+    :root{
+      --bg:#0a0606;
+      --bg-soft:#140a0a;
+      --red:#e8121f;
+      --red-bright:#ff2b38;
+      --red-deep:#b00d15;
+      --text:#f6f3f3;
+      --muted:rgba(246,243,243,.55);
+      --muted-soft:rgba(246,243,243,.32);
+      --line:rgba(255,255,255,.10);
+      --maxw:1180px;
+    }
+
+    *{ box-sizing:border-box; margin:0; padding:0; }
+
+    html{ scroll-behavior:smooth; }
+
+    body{
+      background:var(--bg);
+      color:var(--text);
+      font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+      line-height:1.5;
+      overflow-x:hidden;
+      -webkit-font-smoothing:antialiased;
+    }
+
+    a{ color:inherit; text-decoration:none; }
+
+    /* แสงสีแดงเรือง ๆ เป็นพื้นหลังทั้งหน้า */
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      background:
+        radial-gradient(60% 50% at 72% 55%, rgba(232,18,31,.30), transparent 60%),
+        radial-gradient(40% 35% at 50% 0%, rgba(232,18,31,.10), transparent 70%);
+      pointer-events:none;
+      z-index:0;
+    }
+
+    /* =========================================================
+       แถบเมนูบนสุด (Navbar)
+       ========================================================= */
+    .nav{
+      position:fixed;
+      top:0; left:0; right:0;
+      z-index:50;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:24px;
+      padding:18px clamp(18px,4vw,48px);
+      backdrop-filter:blur(8px);
+      background:linear-gradient(to bottom, rgba(10,6,6,.75), rgba(10,6,6,0));
+      animation:dropIn .8s ease both;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-family:'Space Grotesk',sans-serif;
+      font-weight:600;
+      font-size:20px;
+      letter-spacing:.3px;
+    }
+    .brand .diamond{
+      width:22px; height:22px;
+      display:inline-block;
+      transform:rotate(45deg);
+      border:2px solid var(--text);
+      border-radius:5px;
+      position:relative;
+    }
+    .brand .diamond::after{
+      content:"";
+      position:absolute; inset:4px;
+      border:2px solid var(--text);
+      border-radius:3px;
+      opacity:.55;
+    }
+
+    .menu{
+      display:flex;
+      align-items:center;
+      gap:26px;
+      font-size:14px;
+      color:var(--muted);
+    }
+    .menu a{ transition:color .2s ease; }
+    .menu a:hover{ color:var(--text); }
+
+    .btn{
+      font-family:'Inter',sans-serif;
+      font-size:14px;
+      font-weight:600;
+      border:none;
+      cursor:pointer;
+      border-radius:999px;
+      padding:11px 22px;
+      color:#fff;
+      background:linear-gradient(180deg,var(--red-bright),var(--red-deep));
+      box-shadow:0 8px 26px rgba(232,18,31,.45), inset 0 1px 0 rgba(255,255,255,.25);
+      transition:transform .2s ease, box-shadow .2s ease;
+      white-space:nowrap;
+    }
+    .btn:hover{ transform:translateY(-2px); box-shadow:0 12px 32px rgba(232,18,31,.6), inset 0 1px 0 rgba(255,255,255,.25); }
+
+    .nav-toggle{ display:none; }
+
+    /* =========================================================
+       ส่วน HERO
+       ========================================================= */
+    .hero{
+      position:relative;
+      z-index:1;
+      max-width:var(--maxw);
+      margin:0 auto;
+      padding:170px clamp(18px,4vw,48px) 60px;
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+
+    /* ตัวอักษรยักษ์ TRANSFORM เป็นฉากหลัง */
+    .bg-word{
+      position:absolute;
+      top:40%;
+      left:50%;
+      transform:translate(-50%,-50%);
+      font-family:'Space Grotesk',sans-serif;
+      font-weight:700;
+      font-size:clamp(70px,16vw,240px);
+      letter-spacing:-.02em;
+      color:transparent;
+      -webkit-text-stroke:1px rgba(232,18,31,.18);
+      background:linear-gradient(180deg, rgba(232,18,31,.28), rgba(232,18,31,.04));
+      -webkit-background-clip:text;
+      background-clip:text;
+      white-space:nowrap;
+      pointer-events:none;
+      z-index:0;
+      animation:fadeUp 1.2s ease .1s both;
+    }
+
+    .hero-grid{
+      position:relative;
+      z-index:2;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      align-items:center;
+      gap:40px;
+    }
+
+    /* ---- คอลัมน์ซ้าย : ข้อความ ---- */
+    .hero-title{
+      font-family:'Space Grotesk',sans-serif;
+      font-weight:700;
+      font-size:clamp(34px,5vw,60px);
+      line-height:1.02;
+      letter-spacing:-.01em;
+      text-transform:uppercase;
+      animation:fadeUp 1s ease .35s both;
+    }
+    .hero-sub{
+      margin-top:22px;
+      max-width:430px;
+      color:var(--muted);
+      font-size:16px;
+      animation:fadeUp 1s ease .5s both;
+    }
+    .hero-actions{
+      margin-top:32px;
+      display:flex;
+      align-items:center;
+      gap:22px;
+      animation:fadeUp 1s ease .65s both;
+    }
+    .btn-lg{ padding:14px 28px; font-size:15px; }
+    .play{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      font-size:14px;
+      font-weight:500;
+      color:var(--text);
+    }
+    .play .ring{
+      width:34px; height:34px;
+      border-radius:50%;
+      display:grid; place-items:center;
+      border:1px solid var(--red);
+      color:var(--red-bright);
+      transition:background .2s ease;
+    }
+    .play:hover .ring{ background:rgba(232,18,31,.15); }
+
+    .trusted{
+      margin-top:40px;
+      animation:fadeUp 1s ease .8s both;
+    }
+    .trusted .label{ font-size:13px; color:var(--muted); margin-bottom:10px; }
+    .avatars{ display:flex; align-items:center; gap:14px; }
+    .avatars .stack{ display:flex; }
+    .avatars .stack span{
+      width:38px; height:38px;
+      border-radius:50%;
+      border:2px solid var(--bg);
+      margin-left:-12px;
+      background-size:cover;
+      background-position:center;
+      box-shadow:0 2px 8px rgba(0,0,0,.5);
+    }
+    .avatars .stack span:first-child{ margin-left:0; }
+    .avatars .count{ font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:18px; }
+    .avatars .count small{ display:block; font-family:'Inter'; font-weight:400; font-size:12px; color:var(--muted); }
+
+    /* ---- คอลัมน์ขวา : รูป + สถิติ ---- */
+    .hero-visual{
+      position:relative;
+      animation:imgIn 1.3s cubic-bezier(.2,.7,.2,1) .25s both;
+    }
+    .portrait{
+      position:relative;
+      width:100%;
+      aspect-ratio:4/5;
+      border-radius:18px;
+      overflow:hidden;
+      -webkit-mask-image:linear-gradient(to bottom, #000 78%, transparent 100%);
+      mask-image:linear-gradient(to bottom, #000 78%, transparent 100%);
+    }
+    .portrait img{
+      position:absolute; inset:0;
+      width:100%; height:100%;
+      object-fit:cover;
+      object-position:center top;
+      z-index:2;
+    }
+    /* ภาพสำรอง (กราฟิกแว่น VR เรืองแสง) เผื่อรูปจริงโหลดไม่ขึ้น */
+    .portrait .fallback{
+      position:absolute; inset:0;
+      z-index:1;
+      display:grid; place-items:center;
+      background:
+        radial-gradient(60% 60% at 50% 45%, rgba(232,18,31,.45), transparent 65%),
+        linear-gradient(160deg,#1a0c0c,#0a0606);
+    }
+
+    .stat{
+      position:absolute;
+      z-index:3;
+      animation:fadeUp 1s ease both;
+    }
+    .stat .num{ font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:28px; }
+    .stat .desc{ font-size:12px; color:var(--muted); max-width:140px; }
+    .stat-1{ top:18%; left:-6%; animation-delay:1s; }
+    .stat-2{ top:54%; left:2%; animation-delay:1.15s; }
+    .stat-card{
+      right:-4%; bottom:8%;
+      padding:16px 18px;
+      border-radius:14px;
+      background:rgba(20,10,10,.55);
+      border:1px solid var(--line);
+      backdrop-filter:blur(10px);
+      animation-delay:1.3s;
+    }
+    .stat-card .num{ font-size:22px; }
+    .stat-card .title{ font-size:13px; font-weight:600; margin:2px 0 4px; }
+
+    .v-labels{
+      position:absolute;
+      top:0; right:-30px;
+      height:100%;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-around;
+      align-items:center;
+      pointer-events:none;
+      z-index:3;
+    }
+    .v-labels span{
+      writing-mode:vertical-rl;
+      text-transform:uppercase;
+      font-size:11px;
+      letter-spacing:.35em;
+      color:var(--muted-soft);
+      animation:fadeIn 1s ease 1.4s both;
+    }
+
+    /* =========================================================
+       แถวโลโก้ลูกค้า (เลื่อนวน)
+       ========================================================= */
+    .logos{
+      position:relative;
+      z-index:1;
+      border-top:1px solid var(--line);
+      border-bottom:1px solid var(--line);
+      padding:26px 0;
+      overflow:hidden;
+      -webkit-mask-image:linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+      mask-image:linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+      animation:fadeIn 1s ease 1s both;
+    }
+    .logos-track{
+      display:flex;
+      gap:70px;
+      width:max-content;
+      animation:marquee 22s linear infinite;
+    }
+    .logos:hover .logos-track{ animation-play-state:paused; }
+    .logo-item{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-family:'Space Grotesk',sans-serif;
+      font-weight:600;
+      font-size:20px;
+      color:var(--muted);
+      white-space:nowrap;
+      transition:color .2s ease;
+    }
+    .logo-item:hover{ color:var(--text); }
+    .logo-item svg{ width:24px; height:24px; }
+
+    /* =========================================================
+       อนิเมชัน (keyframes)
+       ========================================================= */
+    @keyframes fadeUp{ from{ opacity:0; transform:translateY(26px); } to{ opacity:1; transform:translateY(0); } }
+    @keyframes fadeIn{ from{ opacity:0; } to{ opacity:1; } }
+    @keyframes dropIn{ from{ opacity:0; transform:translateY(-18px); } to{ opacity:1; transform:translateY(0); } }
+    @keyframes imgIn{ from{ opacity:0; transform:translateX(60px) scale(.98); } to{ opacity:1; transform:translateX(0) scale(1); } }
+    @keyframes marquee{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+
+    @media (prefers-reduced-motion:reduce){
+      *{ animation:none !important; }
+    }
+
+    /* =========================================================
+       จอเล็ก (มือถือ/แท็บเล็ต)
+       ========================================================= */
+    @media (max-width:860px){
+      .menu{ display:none; }
+      .hero-grid{ grid-template-columns:1fr; gap:30px; }
+      .hero{ padding-top:130px; text-align:left; }
+      .hero-visual{ order:-1; max-width:420px; }
+      .v-labels{ display:none; }
+      .stat-1{ left:0; }
+      .stat-2{ left:0; }
+      .stat-card{ right:0; }
+    }
+  </style>
 </head>
+
 <body>
+
+  <!-- ===================== เมนูบนสุด ===================== -->
+  <header class="nav">
+    <div class="brand"><span class="diamond"></span> Visora</div>
+    <nav class="menu">
+      <a href="#">Home</a>
+      <a href="#">About</a>
+      <a href="#">Services</a>
+      <a href="#">Testimonials</a>
+      <a href="#">Contact</a>
+    </nav>
+    <button class="btn">Book a Call</button>
+  </header>
+
+  <!-- ===================== HERO ===================== -->
+  <main class="hero">
+    <div class="bg-word">TRANSFORM</div>
+
+    <div class="hero-grid">
+
+      <!-- ซ้าย: ข้อความ -->
+      <div class="hero-left">
+        <h1 class="hero-title">Step Into<br />The Future</h1>
+        <p class="hero-sub">
+          Whether it's a game, training sim, or product experience, if it belongs in
+          VR, we bring it to life. Fully custom, always immersive.
+        </p>
+
+        <div class="hero-actions">
+          <button class="btn btn-lg">Get Started</button>
+          <a href="#" class="play">
+            <span class="ring">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            </span>
+            Watch a Video
+          </a>
+        </div>
+
+        <div class="trusted">
+          <div class="label">Trusted by</div>
+          <div class="avatars">
+            <div class="stack">
+              <span style="background:radial-gradient(circle at 30% 30%,#7a3b3b,#2a1212)"></span>
+              <span style="background:radial-gradient(circle at 30% 30%,#3b5a7a,#12202a)"></span>
+              <span style="background:radial-gradient(circle at 30% 30%,#7a6a3b,#2a2412)"></span>
+              <span style="background:radial-gradient(circle at 30% 30%,#5a3b7a,#22122a)"></span>
+            </div>
+            <div class="count">20+<small>Happy clients</small></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ขวา: รูป + สถิติ -->
+      <div class="hero-visual">
+        <div class="portrait">
+          <!-- ภาพสำรอง (กราฟิกแว่น VR) แสดงเมื่อรูปจริงโหลดไม่ขึ้น -->
+          <div class="fallback">
+            <svg width="60%" viewBox="0 0 200 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="14" y="34" width="172" height="60" rx="30" fill="#1c0d0d" stroke="#e8121f" stroke-width="2"/>
+              <rect x="30" y="48" width="60" height="32" rx="16" fill="#e8121f" opacity=".85"/>
+              <rect x="110" y="48" width="60" height="32" rx="16" fill="#e8121f" opacity=".85"/>
+              <circle cx="100" cy="64" r="5" fill="#ff2b38"/>
+            </svg>
+          </div>
+          <!-- รูปจริง: ดึงจาก Pexels (ฟรี ไม่ต้องให้เครดิต) จะโหลดขึ้นเมื่อออนไลน์ -->
+          <img
+            src="https://images.pexels.com/photos/19500113/pexels-photo-19500113.jpeg?auto=compress&cs=tinysrgb&w=1000&h=1250&fit=crop"
+            alt="Person wearing a VR headset"
+            onerror="this.style.display='none'"
+          />
+        </div>
+
+        <!-- ตัวเลขสถิติ -->
+        <div class="stat stat-1">
+          <div class="num">50K+</div>
+          <div class="desc">Training hours delivered</div>
+        </div>
+        <div class="stat stat-2">
+          <div class="num">100%</div>
+          <div class="desc">Custom-built solutions</div>
+        </div>
+        <div class="stat stat-card">
+          <div class="num">10+</div>
+          <div class="title">Games Developed</div>
+          <div class="desc">For Oculus, Vive, and major VR headsets</div>
+        </div>
+
+        <!-- ตัวหนังสือแนวตั้ง -->
+        <div class="v-labels">
+          <span>Reimagine</span>
+          <span>Virtualized</span>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ===================== แถวโลโก้ลูกค้า (เลื่อนวน) ===================== -->
+  <section class="logos">
+    <div class="logos-track" id="logosTrack">
+      <!-- ชุดที่ 1 -->
+      <span class="logo-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20L12 4l8 16M8 14h8"/></svg>Synergy</span>
+      <span class="logo-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8 12a4 4 0 018 0"/></svg>Velocity</span>
+      <span class="logo-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12c4-6 14-6 18 0M5 15c3-4 11-4 14 0M7 18c2-2 8-2 10 0"/></svg>Spectrum</span>
+      <span class="logo-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M3 12h18M6 6l12 12M18 6L6 18"/></svg>Stellar</span>
+      <span class="logo-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M6 6l2 2M16 16l2 2M18 6l-2 2M8 16l-2 2"/></svg>Enigma</span>
+    </div>
+  </section>
+
+  <script>
+    /* คัดลอกชุดโลโก้ซ้ำอีกหนึ่งชุด เพื่อให้การเลื่อนวนต่อเนื่องแบบไม่มีรอยต่อ */
+    (function(){
+      var track = document.getElementById('logosTrack');
+      if(!track) return;
+      track.innerHTML += track.innerHTML;
+    })();
+  </script>
+
 </body>
 </html>
