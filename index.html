@@ -165,26 +165,24 @@
       position:relative;
       width:100%;
       aspect-ratio:4/5;
-      border-radius:18px;
-      overflow:hidden;
-      -webkit-mask-image:linear-gradient(to bottom, #000 78%, transparent 100%);
-      mask-image:linear-gradient(to bottom, #000 78%, transparent 100%);
+      /* ไล่ขอบรูปให้จางหายไปทุกด้าน จะได้ไม่เห็นเป็นกรอบสี่เหลี่ยม */
+      -webkit-mask-image:radial-gradient(115% 100% at 60% 40%, #000 38%, transparent 70%);
+      mask-image:radial-gradient(115% 100% at 60% 40%, #000 38%, transparent 70%);
     }
     .portrait img{
       position:absolute; inset:0;
       width:100%; height:100%;
       object-fit:cover;
       object-position:center top;
+      /* พื้นดำของรูปจะกลายเป็นแสงแดง (ตามชั้นแสงด้านหลัง) เหลือเด่นแต่ตัวคน */
+      mix-blend-mode:lighten;
       z-index:2;
     }
-    /* ภาพสำรอง (กราฟิกแว่น VR เรืองแสง) เผื่อรูปจริงโหลดไม่ขึ้น */
+    /* แสงแดงเรือง ๆ ด้านหลังตัวคน ช่วยให้พื้นดำของรูปกลืนเป็นแสง ไม่เป็นกล่อง */
     .portrait .fallback{
-      position:absolute; inset:0;
+      position:absolute; inset:-12%;
       z-index:1;
-      display:grid; place-items:center;
-      background:
-        radial-gradient(60% 60% at 50% 45%, rgba(232,18,31,.45), transparent 65%),
-        linear-gradient(160deg,#1a0c0c,#0a0606);
+      background:radial-gradient(52% 50% at 55% 44%, rgba(235,22,36,.55), rgba(235,22,36,.14) 46%, transparent 72%);
     }
 
     .stat{
@@ -199,10 +197,12 @@
     .stat-card{
       right:-4%; bottom:8%;
       padding:16px 18px;
-      border-radius:14px;
-      background:rgba(20,10,10,.55);
-      border:1px solid var(--line);
-      backdrop-filter:blur(10px);
+      border-radius:16px;
+      background:rgba(14,11,12,.30);
+      border:1px solid rgba(255,255,255,.14);
+      backdrop-filter:blur(14px);
+      -webkit-backdrop-filter:blur(14px);
+      box-shadow:0 12px 40px rgba(0,0,0,.45);
       animation-delay:1.3s;
     }
     .stat-card .num{ font-size:22px; }
