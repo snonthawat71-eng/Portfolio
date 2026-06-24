@@ -97,7 +97,11 @@
       font-size:min(15.5vw,230px);
       line-height:1;
       letter-spacing:-.03em;
-      color:#e30613;
+      /* สีแดงเข้มหม่น ๆ กลืนกับพื้นดำ (เข้มซ้าย สว่างขึ้นเล็กน้อยตรงกลาง) แบบภาพตัวอย่าง */
+      color:transparent;
+      background:linear-gradient(95deg, #380a0c 0%, #520f14 45%, #6f1218 62%, #460c10 100%);
+      -webkit-background-clip:text;
+      background-clip:text;
       white-space:nowrap;
       pointer-events:none;
       z-index:0;
