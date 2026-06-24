@@ -11,23 +11,22 @@
   <link rel="stylesheet" href="styles/main.css" />
 </head>
 <body>
+  <!-- ปุ่มสลับภาษาแบบลอย (แทน header) -->
+  <button class="lang-toggle lang-toggle--float" id="langToggle" aria-label="Switch language" data-i18n="lang.toggle">TH</button>
+
   <main>
-    <!-- ===================== HERO (no header) ===================== -->
+    <!-- ===================== HERO ===================== -->
     <section class="hero" id="hero">
-      <!-- พื้นหลังเคลื่อนไหว: แสงส้มลอยเลื่อน -->
       <div class="hero-bg" aria-hidden="true">
         <span class="blob blob--1"></span>
         <span class="blob blob--2"></span>
         <span class="blob blob--3"></span>
       </div>
-      <!-- ฝุ่นจุดเล็ก ๆ ลอยวิ่ง -->
       <canvas class="hero-dust" id="heroDust" aria-hidden="true"></canvas>
-
-      <!-- ปุ่มสลับภาษาแบบลอย (แทน header) -->
-      <button class="lang-toggle lang-toggle--float" id="langToggle" aria-label="Switch language" data-i18n="lang.toggle">TH</button>
+      <!-- คำใหญ่จาง ๆ ด้านหลัง -->
+      <div class="hero-outline" aria-hidden="true">DESIGN</div>
 
       <div class="hero-grid">
-        <!-- ข้อความ (ซ้าย) -->
         <div class="hero-copy reveal">
           <p class="hero-kicker">
             <span class="dot-orange"></span>
@@ -42,11 +41,78 @@
             <a href="#work" class="btn btn--orange" data-i18n="hero.cta">View Work</a>
             <a href="assets/resume.pdf" class="btn btn--outline" download data-i18n="resume.cta">Download Resume</a>
           </div>
+
+          <!-- แถวสถิติ -->
+          <div class="hero-stats">
+            <div class="stat">
+              <span class="stat__num" data-i18n="hero.stat1n">120+</span>
+              <span class="stat__label" data-i18n="hero.stat1l">Projects done</span>
+            </div>
+            <div class="stat">
+              <span class="stat__num" data-i18n="hero.stat2n">6+</span>
+              <span class="stat__label" data-i18n="hero.stat2l">Years experience</span>
+            </div>
+            <div class="stat">
+              <span class="stat__num" data-i18n="hero.stat3n">40+</span>
+              <span class="stat__label" data-i18n="hero.stat3l">Happy clients</span>
+            </div>
+          </div>
         </div>
 
-        <!-- รูปคน (ขวา) -->
         <div class="hero-visual reveal">
           <img src="assets/hero-portrait.svg" alt="Portrait" />
+          <!-- แถบ trusted by ลอยบนรูป -->
+          <div class="trusted">
+            <div class="trusted__avatars">
+              <span style="background:#ff5a48"></span>
+              <span style="background:#e0202a"></span>
+              <span style="background:#ff7a5c"></span>
+              <span style="background:#b00f1a"></span>
+            </div>
+            <span class="trusted__text" data-i18n="hero.trusted">Trusted by brands &amp; studios</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== MARQUEE (โลโก้/เครื่องมือเลื่อน) ===================== -->
+    <div class="marquee" aria-label="Tools">
+      <div class="marquee__track">
+        <span>Photoshop</span><span>•</span><span>Illustrator</span><span>•</span><span>InDesign</span><span>•</span><span>Figma</span><span>•</span><span>After Effects</span><span>•</span><span>Procreate</span><span>•</span>
+        <span>Photoshop</span><span>•</span><span>Illustrator</span><span>•</span><span>InDesign</span><span>•</span><span>Figma</span><span>•</span><span>After Effects</span><span>•</span><span>Procreate</span><span>•</span>
+      </div>
+    </div>
+
+    <!-- ===================== SERVICES ===================== -->
+    <section class="section" id="services">
+      <div class="section__head reveal">
+        <p class="kicker" data-i18n="services.kicker">What I Do</p>
+        <h2 class="section__title" data-i18n="services.title">Services</h2>
+      </div>
+      <div class="svc-grid">
+        <div class="svc reveal">
+          <div class="svc__icon">◆</div>
+          <h3 class="svc__title" data-i18n="svc1.t">Brand Identity</h3>
+          <p class="svc__desc" data-i18n="svc1.d">Logos, color systems and guidelines.</p>
+          <a href="#contact" class="svc__more" data-i18n="services.more">Learn more</a>
+        </div>
+        <div class="svc reveal">
+          <div class="svc__icon">▤</div>
+          <h3 class="svc__title" data-i18n="svc2.t">Poster &amp; Print</h3>
+          <p class="svc__desc" data-i18n="svc2.d">Bold layouts for posters and print.</p>
+          <a href="#contact" class="svc__more" data-i18n="services.more">Learn more</a>
+        </div>
+        <div class="svc reveal">
+          <div class="svc__icon">✎</div>
+          <h3 class="svc__title" data-i18n="svc3.t">Illustration</h3>
+          <p class="svc__desc" data-i18n="svc3.d">Custom illustration and icon sets.</p>
+          <a href="#contact" class="svc__more" data-i18n="services.more">Learn more</a>
+        </div>
+        <div class="svc reveal">
+          <div class="svc__icon">✦</div>
+          <h3 class="svc__title" data-i18n="svc4.t">Social &amp; Digital</h3>
+          <p class="svc__desc" data-i18n="svc4.d">Templates and campaigns.</p>
+          <a href="#contact" class="svc__more" data-i18n="services.more">Learn more</a>
         </div>
       </div>
     </section>
@@ -57,8 +123,59 @@
         <p class="kicker" data-i18n="work.kicker">Selected Work</p>
         <h2 class="section__title" data-i18n="work.title">Things I’ve made</h2>
       </div>
-      <!-- การ์ดผลงานถูกสร้างอัตโนมัติจากไฟล์ data/works.js -->
       <div class="grid" id="workGrid"></div>
+    </section>
+
+    <!-- ===================== FEATURED PROJECT ===================== -->
+    <section class="section section--feature" id="featured">
+      <div class="feature reveal">
+        <div class="feature__media">
+          <img src="assets/works/work-1.svg" alt="Featured project" />
+        </div>
+        <div class="feature__text">
+          <p class="kicker" data-i18n="feature.kicker">Featured Project</p>
+          <h2 class="section__title" data-i18n="feature.title">A complete rebrand, end to end</h2>
+          <p class="feature__desc" data-i18n="feature.desc">From research to final delivery.</p>
+          <div class="byline">
+            <span class="byline__avatar"></span>
+            <span>
+              <strong data-i18n="feature.author">Your Name</strong><br />
+              <small data-i18n="feature.role">Graphic Designer</small>
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== TESTIMONIALS ===================== -->
+    <section class="section" id="testimonials">
+      <div class="section__head reveal">
+        <p class="kicker" data-i18n="testi.kicker">Testimonials</p>
+        <h2 class="section__title" data-i18n="testi.title">What clients say</h2>
+      </div>
+      <div class="testi-grid">
+        <figure class="testi reveal">
+          <blockquote data-i18n="testi.q1">“Great work.”</blockquote>
+          <figcaption>
+            <span class="testi__avatar"></span>
+            <span><strong data-i18n="testi.n1">Alex Carter</strong><br /><small data-i18n="testi.r1">Founder</small></span>
+          </figcaption>
+        </figure>
+        <figure class="testi reveal">
+          <blockquote data-i18n="testi.q2">“Great work.”</blockquote>
+          <figcaption>
+            <span class="testi__avatar"></span>
+            <span><strong data-i18n="testi.n2">Mia Chen</strong><br /><small data-i18n="testi.r2">Marketing Lead</small></span>
+          </figcaption>
+        </figure>
+        <figure class="testi reveal">
+          <blockquote data-i18n="testi.q3">“Great work.”</blockquote>
+          <figcaption>
+            <span class="testi__avatar"></span>
+            <span><strong data-i18n="testi.n3">Daniel Reed</strong><br /><small data-i18n="testi.r3">Creative Director</small></span>
+          </figcaption>
+        </figure>
+      </div>
     </section>
 
     <!-- ===================== ABOUT ===================== -->
@@ -71,7 +188,6 @@
         </div>
         <div class="about__skills">
           <h3 data-i18n="about.skills">Tools &amp; Skills</h3>
-          <!-- แก้รายการทักษะได้ที่นี่ตรง ๆ -->
           <ul class="chips">
             <li>Photoshop</li>
             <li>Illustrator</li>
@@ -86,22 +202,20 @@
       </div>
     </section>
 
-    <!-- ===================== CONTACT ===================== -->
+    <!-- ===================== CTA + CONTACT ===================== -->
     <section class="section section--contact" id="contact">
       <div class="contact reveal">
-        <p class="kicker" data-i18n="contact.kicker">Contact</p>
-        <h2 class="section__title" data-i18n="contact.title">Let’s work together</h2>
-        <p class="contact__body" data-i18n="contact.body">Open to freelance and full-time roles.</p>
+        <p class="kicker" data-i18n="cta.kicker">Contact</p>
+        <h2 class="section__title contact__big" data-i18n="cta.title">Let’s create something bold</h2>
+        <p class="contact__body" data-i18n="cta.body">Have a project in mind?</p>
 
-        <!-- แก้อีเมลตรงนี้ (มี 2 ที่: href="mailto:..." กับข้อความที่โชว์) -->
         <a class="contact__email" href="mailto:s.nonthawat71@gmail.com">s.nonthawat71@gmail.com</a>
 
         <div class="contact__actions">
-          <a href="mailto:s.nonthawat71@gmail.com" class="btn btn--primary" data-i18n="contact.cta">Say hello</a>
+          <a href="mailto:s.nonthawat71@gmail.com" class="btn btn--primary" data-i18n="cta.btn">Start a project</a>
           <a href="assets/resume.pdf" class="btn btn--ghost" download data-i18n="resume.cta">Download Resume (PDF)</a>
         </div>
 
-        <!-- แก้/เพิ่มลิงก์โซเชียลได้ที่นี่ -->
         <ul class="socials">
           <li><a href="#" target="_blank" rel="noopener">Instagram</a></li>
           <li><a href="#" target="_blank" rel="noopener">Behance</a></li>
